@@ -1,4 +1,4 @@
-package com.example.CarFedya.services;
+package com.tms.CarFedya.services;
 
 public interface RegistrationService {
     

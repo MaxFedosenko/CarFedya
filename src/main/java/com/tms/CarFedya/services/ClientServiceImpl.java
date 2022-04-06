@@ -1,9 +1,9 @@
-package com.example.CarFedya.services;
+package com.tms.CarFedya.services;
 
-import com.example.CarFedya.entities.Client;
-import com.example.CarFedya.exceptions.ExistsException;
-import com.example.CarFedya.repositories.CarRepository;
-import com.example.CarFedya.repositories.ClientRepository;
+import com.tms.CarFedya.entities.Client;
+import com.tms.CarFedya.exceptions.ExistsException;
+import com.tms.CarFedya.repositories.CarRepository;
+import com.tms.CarFedya.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

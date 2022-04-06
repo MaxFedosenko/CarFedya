@@ -1,7 +1,7 @@
-package com.example.CarFedya.services;
+package com.tms.CarFedya.services;
 
-import com.example.CarFedya.entities.Car;
-import com.example.CarFedya.repositories.CarRepository;
+import com.tms.CarFedya.entities.Car;
+import com.tms.CarFedya.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

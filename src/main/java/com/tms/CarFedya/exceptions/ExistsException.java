@@ -1,4 +1,4 @@
-package com.example.CarFedya.exceptions;
+package com.tms.CarFedya.exceptions;
 
 public class ExistsException extends RuntimeException{
     

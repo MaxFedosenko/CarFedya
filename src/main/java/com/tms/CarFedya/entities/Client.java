@@ -1,4 +1,4 @@
-package com.example.CarFedya.entities;
+package com.tms.CarFedya.entities;
 
 import javax.persistence.*;
 import java.util.List;

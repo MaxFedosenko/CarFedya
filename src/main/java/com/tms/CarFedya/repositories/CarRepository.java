@@ -1,6 +1,6 @@
-package com.example.CarFedya.repositories;
+package com.tms.CarFedya.repositories;
 
-import com.example.CarFedya.entities.Car;
+import com.tms.CarFedya.entities.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

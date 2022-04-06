@@ -1,6 +1,6 @@
-package com.example.CarFedya.services;
+package com.tms.CarFedya.services;
 
-import com.example.CarFedya.entities.Client;
+import com.tms.CarFedya.entities.Client;
 
 public interface ClientService {
     

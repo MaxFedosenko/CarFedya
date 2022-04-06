@@ -1,7 +1,7 @@
-package com.example.CarFedya.services;
+package com.tms.CarFedya.services;
 
-import com.example.CarFedya.entities.Admin;
-import com.example.CarFedya.entities.Client;
+import com.tms.CarFedya.entities.Admin;
+import com.tms.CarFedya.entities.Client;
 
 public interface Validator {
     String calculateValidator(Double rate, Double timeRent);
