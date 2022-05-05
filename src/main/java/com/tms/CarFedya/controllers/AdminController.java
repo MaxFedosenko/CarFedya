@@ -1,67 +1,79 @@
 package com.tms.CarFedya.controllers;
 
+import com.tms.CarFedya.entities.Car;
+import com.tms.CarFedya.exceptions.*;
 import com.tms.CarFedya.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    
+    private final String prefix = "adminpages/";
     
     @Autowired
     CarService carService;
     
     @GetMapping
     public String adminHomePage() {
-        return "adminpages/adminhome";
+        return prefix + "adminhome";
     }
     
-    @GetMapping("/startcrud")
-    public String startCrud(Model model) {
-        model.addAttribute("crud", carService.findAll());
-        return "adminpages/startcrud";
+    @GetMapping("/carsoperation")
+    public String carsOperation() {
+        return prefix + "carsoperation";
     }
     
-    @GetMapping("/startcreate")
-    public String startCreateCar() {
-        return "adminpages/startcreate";
+    @GetMapping("/beforecreate")
+    public String beforeCreateCar() {
+        return prefix + "beforecreate";
     }
     
-    @GetMapping("/updatecar")
-    public String startUpdateCar(Model model) {
-        model.addAttribute("forUpdate", carService.findAll());
-        return "adminpages/startupdate";
+    @GetMapping("/beforeupdate")
+    public String beforeUpdateCar(Model model) {
+        model.addAttribute("cars", carService.findAll());
+        return prefix + "beforeupdate";
     }
     
-    @GetMapping("/deletecar")
-    public String startDeleteCar(Model model) {
-        model.addAttribute("all", carService.findAll());
-        return "adminpages/deletecar";
+    @GetMapping("/beforedelete")
+    public String beforeDeleteCar(Model model) {
+        model.addAttribute("cars", carService.findAll());
+        return prefix + "beforedelete";
     }
     
-    @PostMapping("/finalcreate")
-    public String finalCreateCar(@RequestParam(required = false) String modelCar,
-                                 @RequestParam(required = false) Double rate,
-                                 @RequestParam(required = false) String description,
-                                 Model model) {
-        model.addAttribute("saved", carService.save(modelCar, rate, description));
-        return "adminpages/finalcreate";
+    @PostMapping("/create")
+    public String createCar(@Valid Car car, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            throw new CarFieldsException("заполните все поля");
+        }
+        model.addAttribute("car", carService.save(car));
+        return prefix + "create";
     }
     
-    @PostMapping("/finaldelete")
-    public String deleteCar(@RequestParam(required = false) Long id, Model model) {
-        model.addAttribute("deleted", carService.delete(id));
-        return "adminpages/finaldelete";
+    @PostMapping("/delete")
+    public String deleteCar(@RequestParam Long id) {
+        carService.delete(id);
+        return prefix + "delete";
     }
     
-    @PostMapping("/finalupdate")
+    @PostMapping("/update")
     public String updateCar(@RequestParam String description,
                             @RequestParam Long id) {
-        return  carService.updateDescription(description, id);
+        carService.updateDescription(description, id);
+        return prefix + "update";
     }
+    
+    @ExceptionHandler({ClientFieldsException.class, InvalidRateException.class, DescriptionException.class})
+    public String exc(CarException exception, Model model) {
+        model.addAttribute("exc", exception.getMessage());
+        model.addAttribute("cars", carService.findAll());
+        return prefix + exception.getViewName();
+    }
+    
 }

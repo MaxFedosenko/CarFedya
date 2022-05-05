@@ -1,49 +1,59 @@
 package com.tms.CarFedya.services;
 
-import com.tms.CarFedya.entities.Admin;
+import com.tms.CarFedya.entities.Car;
 import com.tms.CarFedya.entities.Client;
+import com.tms.CarFedya.exceptions.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ValidatorImpl implements Validator {
     
-    public String calculateValidator(Double rate, Double timeRent){
-        if (timeRent < 1) {
-            throw new IllegalArgumentException("Проверьте правильность ввода времени аренды автомобиля!");
+    public boolean validate(Double timeRent) {
+        if (timeRent < 0.5) {
+            throw new InvalidDataInput("Проверьте правильность ввода времени аренды автомобиля!");
         } else {
-            return String.format("%.1f", 60 * rate * timeRent);
+            return true;
         }
     }
     
-    public Client clientValidator(Client client, String password) {
+    public Client validate(Client client, String password) {
         if (client != null && client.getPassword().equals(password)) {
             return client;
         } else {
-            throw new NullPointerException("Неверный логин или пароль");
+            throw new WrongLoginOrPassword("Неверный логин или пароль");
         }
     }
     
-    public Admin adminValidator(Admin admin, String password) {
-        if (admin != null && admin.getPassword().equals(password) && admin.getLogin().contains("admin")) {
-            return admin;
+    public Client validate(Client client) {
+        if (client != null && !client.getRole().equals("noRole")) {
+            return client;
         } else {
-            throw new NullPointerException("Неверный логин или пароль");
+            throw new RoleIsNotSelected("Выберите роль");
         }
     }
     
-    public void bookingValidator(Long carId) {
-        if (carId == 500) {
-            throw new NumberFormatException("В данный момент все машины заняты!");
-        }
-    }
-    
-    public String  authorizationValidator(Admin admin, Client client, String password) {
-        if (admin != null) {
-            adminValidator(admin, password);
-            return "redirect:/admin";
+    public boolean validate(Long carId) {
+        if (carId == -1) {
+            throw new BookingException("В данный момент все машины заняты!");
         } else {
-            clientValidator(client, password);
-            return "redirect:/client";
+            return true;
         }
     }
+    
+    public boolean validate(Car car) {
+        if (car.getRate() < 0.05) {
+            throw new InvalidRateException("Стоимость не может быть указана ниже чем 0,05 BYN");
+        } else {
+            return true;
+        }
+    }
+    
+    public boolean validate(String description) {
+        if (description.equals("")) {
+            throw new DescriptionException("Заполните описание машины");
+        } else {
+            return true;
+        }
+    }
+    
 }

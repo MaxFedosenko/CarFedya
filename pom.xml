@@ -65,21 +65,11 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.glassfish.web</groupId>-->
-<!--			<artifactId>jakarta.servlet.jsp.jstl</artifactId>-->
-<!--			<version>2.0.0</version>-->
-<!--		</dependency>-->
-		<!-- taglibs-standard-spec-*.jar -->
-		<!-- http://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-spec -->
 		<dependency>
 			<groupId>org.apache.taglibs</groupId>
 			<artifactId>taglibs-standard-spec</artifactId>
 			<version>1.2.5</version>
 		</dependency>
-
-		<!-- taglibs-standard-impl-*.jar -->
-		<!-- http://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
 		<dependency>
 			<groupId>org.apache.taglibs</groupId>
 			<artifactId>taglibs-standard-impl</artifactId>

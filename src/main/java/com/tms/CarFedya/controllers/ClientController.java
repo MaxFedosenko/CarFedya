@@ -1,6 +1,9 @@
 package com.tms.CarFedya.controllers;
 
-import com.tms.CarFedya.exceptions.ExistsException;
+import com.tms.CarFedya.exceptions.BookingException;
+import com.tms.CarFedya.exceptions.CarException;
+import com.tms.CarFedya.exceptions.InvalidDataInput;
+import com.tms.CarFedya.exceptions.LoginIsNotExists;
 import com.tms.CarFedya.services.CarService;
 import com.tms.CarFedya.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/client")
 public class ClientController {
     
+    private final String prefix = "clientpages/";
+    
     @Autowired
     CarService carService;
     @Autowired
@@ -19,79 +24,75 @@ public class ClientController {
     
     @GetMapping
     public String homePage() {
-        return "clientpages/clienthome";
+        return prefix + "clienthome";
     }
     
     
-    @GetMapping("/getcars")
+    @GetMapping("/cars")
     public String getCars(Model model) {
         model.addAttribute("cars", carService.findAll());
-        return "clientpages/getcars";
+        model.addAttribute("counter", carService.findAll().size());
+        return prefix + "getcars";
     }
     
-    @GetMapping("/booking")
-    public String booking(Model model) {
-        model.addAttribute("booking", carService.findAll());
-        return "clientpages/booking";
+    @GetMapping("/beforebooking")
+    public String beforeBooking(Model model) {
+        model.addAttribute("cars", carService.findAll());
+        return prefix + "beforebooking";
     }
     
-    @PostMapping("/finalbooking")
-    public String finalBooking(@RequestParam Long carId,
+    @PostMapping("/booking")
+    public String booking(@RequestParam Long carId,
                             @RequestParam String login) {
-        return clientService.booking(carId, login);
+        clientService.booking(carId, login);
+        return prefix + "booking";
     }
     
-    @GetMapping("/cardpayment")
-    public String cardPayment(){
-        return "clientpages/cardpayment";
+    @GetMapping("/beforecardpayment")
+    public String beforeCardPayment(){
+        return prefix + "beforecardpayment";
     }
     
-    @PostMapping("/finalcardpayment")
-    public String finalCardPayment() {
-        return "clientpages/finalcardpayment";
+    @PostMapping("/cardpayment")
+    public String cardPayment() {
+        return prefix + "cardpayment";
     }
     
     @GetMapping("/rate")
     public String rate(Model model) {
-        model.addAttribute("car", carService.findAll());
-        return "clientpages/rate";
-    }
-    
-    @GetMapping("/calculate")
-    public String calculate(Model model) {
         model.addAttribute("cars", carService.findAll());
-        return "clientpages/calculate";
+        model.addAttribute("counter", carService.findAll().size());
+        return prefix + "rate";
     }
     
-    @PostMapping("/finalcalculate")
-    public String finalCalculate(@RequestParam Long id,
+    @GetMapping("/beforecalculate")
+    public String beforeCalculate(Model model) {
+        model.addAttribute("cars", carService.findAll());
+        return prefix + "beforecalculate";
+    }
+    
+    @PostMapping("/calculate")
+    public String calculate(@RequestParam Long id,
                                  @RequestParam Double timeRent, Model model) {
         model.addAttribute("result", carService.calculate(id, timeRent));
-        return "clientpages/finalcalculate";
+        return prefix + "calculate";
     }
     
     @GetMapping("/support")
     public String support() {
-        return "clientpages/support";
+        return prefix + "support";
     }
     
     @GetMapping("/contacts")
     public String contacts() {
-        return "clientpages/contacts";
+        return prefix + "contacts";
     }
     
-    @ExceptionHandler(IllegalArgumentException.class)
-    public String errorCalculate(Exception exception, Model model) {
-        model.addAttribute("errorCalculate", exception.getMessage());
+    @ExceptionHandler({InvalidDataInput.class, LoginIsNotExists.class, BookingException.class})
+    public String exc(CarException exception, Model model) {
+        model.addAttribute("exc", exception.getMessage());
         model.addAttribute("cars", carService.findAll());
-        return "clientpages/calculate";
-    }
-    
-    @ExceptionHandler({NumberFormatException.class, ExistsException.class})
-    public String errorBooking(Exception exception, Model model) {
-        model.addAttribute("errorBooking", exception.getMessage());
-        model.addAttribute("booking", carService.findAll());
-        return "clientpages/booking";
+        return prefix + exception.getViewName();
     }
     
 }

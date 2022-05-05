@@ -1,7 +1,8 @@
 package com.tms.CarFedya.services;
 
 import com.tms.CarFedya.entities.Client;
-import com.tms.CarFedya.exceptions.ExistsException;
+import com.tms.CarFedya.exceptions.LoginIsExists;
+import com.tms.CarFedya.exceptions.LoginIsNotExists;
 import com.tms.CarFedya.repositories.CarRepository;
 import com.tms.CarFedya.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +19,26 @@ public class ClientServiceImpl implements ClientService {
     CarRepository carRepository;
     
     @Override
-    public Client findByLogin(String login) {
-        return clientRepository.findByLogin(login);
-    }
-    
-    @Override
-    public String booking(Long carId, String login) {
-        validator.bookingValidator(carId);
-        Long idCar = carRepository.findById(carId).get().getId();
+    public void booking(Long carId, String login) {
         Client client = clientRepository.findByLogin(login);
         if (client == null) {
-            throw new ExistsException("Клиента с таким логином не существует!");
+            throw new LoginIsNotExists("Клиента с таким логином не существует!");
         }
-        clientRepository.booking(client.getId(), idCar);
-        return "clientpages/finalbooking";
+        validator.validate(carId);
+        Long idCar = carRepository.findById(carId).get().getId();
+        carRepository.booking(client.getId(), idCar);
     }
     
     
     @Override
-    public String clientRegistration(String name, String login, String password, String numberPhone, String email) {
-        Client client = clientRepository.findByLogin(login);
-        if (client == null){
-            clientRepository.save(new Client(name, login, password, numberPhone, email));
-            return "startpages/finalclientregistration";
+    public void clientRegistration(Client client) {
+        validator.validate(client);
+        String login = client.getLogin();
+        Client clientByLogin = clientRepository.findByLogin(login);
+        if (clientByLogin == null) {
+            clientRepository.save(client);
         } else {
-            throw new ExistsException("Клиент с таким логином уже существует");
+            throw new LoginIsExists("Клиент с таким логином уже существует");
         }
     }
 }

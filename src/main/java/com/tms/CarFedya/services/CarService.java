@@ -8,9 +8,8 @@ public interface CarService {
     
     List<Car> findAll();
     String calculate(Long id, Double timeRent);
-//    Car findByModel(String model);
-    Car save(String modelCar, Double rate, String description);
+    Car save(Car car);
     Car delete(Long id);
-    String updateDescription(String description, Long id);
+    void updateDescription(String description, Long id);
     
 }
