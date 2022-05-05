@@ -4,10 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+       body {
+        background: #FFFFFF;
+        color: #006400;
+       }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-light bg-light fixed-top">
+<nav class="navbar navbar-light bg-light sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
     <img class="img-responsive" src="logo.png">
@@ -26,17 +33,17 @@
             <a class="nav-link active" aria-current="page" href="/">Главная</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/authorization">Авторизация</a>
+            <a class="nav-link" href="/beforeauthorization">Авторизация</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/registration">Регистрация</a>
+            <a class="nav-link" href="/beforeclientregistration">Регистрация</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Навигация сайта
             </a>
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-              <li><a class="dropdown-item" href="getcars">Автомобили</a></li>
+              <li><a class="dropdown-item" href="cars">Автомобили</a></li>
               <li><a class="dropdown-item" href="rate">Цены</a></li>
               <li><a class="dropdown-item" href="support">Подсказки</a></li>
               <li><a class="dropdown-item" href="contacts">Контакты</a></li>
@@ -47,6 +54,21 @@
     </div>
   </div>
 </nav>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <img src="/pictures/logo.png" width="300px" height="300px" class="image-responsive-6">
+        </div>
+        <div class="col-sm">
+            <h2>Регистрация в течение 30 минут</h2>
+            <p>нужен паспорт, водительское удостоверение категории B и банковская карта</p>
+            <h2>Бензин оплачиваем мы</h2>
+            <p>заправляйся за наш счет по топливной карте, которая лежит в бардачке</p>
+            <h2>Круглосуточная онлайн поддержка</h2>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<div class="position-absolute top-0 start-50 translate-middle-x">
+    <img src="/pictures/logo.png" width="200px" height="200px" class="image-responsive-6">
+</div>
+<div class="position-absolute top-50 start-50 translate-middle">
+<form method="post" action="/admin/create">
+    <div class="form-floating">
+        <input name="model" type="text" class="form-control" id="floatingInput" style="width: 100%" placeholder="Введите модель" required>
+        <label for="floatingInput">Введите модель</label>
+    </div>
+    <div class="form-floating">
+        <input name="rate" type="number" min="0.05" max="2.5" step="0.05" class="form-control" id="floatingInput" style="width: 100%" placeholder="Стоимость" required>
+        <label for="floatingInput">Стоимость</label>
+    </div>
+    <div class="form-floating">
+        <input name="description" type="text" class="form-control" id="floatingInput" style="width: 100%" placeholder="Введите описание" required>
+        <label for="floatingInput">Введите описание</label>
+    </div>
+    <div class="input-group mb-3">
+        <input type="submit" class="btn btn-success" style="width: 100%">
+    </div>
+</form>
+<p style="color:Tomato;">${exc}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

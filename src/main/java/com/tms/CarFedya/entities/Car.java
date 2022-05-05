@@ -1,6 +1,7 @@
 package com.tms.CarFedya.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cars")
@@ -8,8 +9,10 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String model;
     private Double rate;
+    @NotBlank
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
     private Client client;

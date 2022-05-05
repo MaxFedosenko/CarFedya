@@ -1,6 +1,7 @@
 package com.tms.CarFedya.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 @Entity
 public class Client {
@@ -8,10 +9,17 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    private String role;
+    @NotBlank
     private String name;
+    @NotBlank
     private String login;
+    @NotBlank
     private String password;
+    @NotBlank
     private String numberPhone;
+    @NotBlank
     private String email;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Car> cars;
@@ -19,7 +27,8 @@ public class Client {
     public Client() {
     }
     
-    public Client(String name, String login, String password, String numberPhone, String email) {
+    public Client(String role, String name, String login, String password, String numberPhone, String email) {
+        this.role = role;
         this.name = name;
         this.login = login;
         this.password = password;
@@ -27,15 +36,12 @@ public class Client {
         this.email = email;
     }
     
-    public Client(Long id, String name, String login, String password,
-                  String  numberPhone, String email, List<Car> cars) {
-        this.id = id;
-        this.name = name;
-        this.login = login;
-        this.password = password;
-        this.numberPhone = numberPhone;
-        this.email = email;
-        this.cars = cars;
+    public String getRole() {
+        return role;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
     }
     
     public Long getId() {
@@ -98,10 +104,11 @@ public class Client {
     public String toString() {
         return "Client{" +
                 "id=" + id +
+                ", role='" + role + '\'' +
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", numberPhone=" + numberPhone +
+                ", numberPhone='" + numberPhone + '\'' +
                 ", email='" + email + '\'' +
                 ", cars=" + cars +
                 '}';

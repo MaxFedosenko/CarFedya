@@ -11,15 +11,12 @@ insert into cars (description, model, rate) values
 ('АКПП, бустер, зарядка для телефонов Android и Apple, держатель для телефона, климат-контроль, двигатель 1.8 , камера заднего вида, круиз контроль', 'Mercedes Benz C180 W205', 1.69);
 delete from cars;
 
-insert into client (email, login, name, number_phone, password) values
-('vasya98@mail.ru', 'vasya98', 'Вася Иванов', '+375291245798', '159753Vasya'),
-('lena86@yandex.ru', 'lena86', 'Лена Борисова', '+375445689632', '753951Lena'),
-('pushkin57@gmail.com', 'pushkin57', 'Алексей Пушкин', '+375251598745', '147963Leha'),
-('zheka90@tut.by', 'zheka90', 'Евгений Пасечкин', '+375331683987', '789321Zhmen'),
-('ivanVladimirovich@mail.ru', 'ivanVladimirovich', 'Иван Прусов', '+375445478965', '456852Ivan');
+insert into client (email, role, login, name, number_phone, password) values
+('valera89@mail.ru', 'admin', 'admin1', 'Валера Петров', '+375293154789', 'admin123'),
+('maxxx@mail.ru', 'admin', 'admin2', 'Максим Леонов', '+375445578965', 'admin456'),
+('vasya98@mail.ru', 'client', 'vasya98', 'Вася Иванов', '+375291245798', '159753Vasya'),
+('lena86@yandex.ru', 'client', 'lena86', 'Лена Борисова', '+375445689632', '753951Lena'),
+('pushkin57@gmail.com', 'client', 'pushkin57', 'Алексей Пушкин', '+375251598745', '147963Leha'),
+('zheka90@tut.by', 'client', 'zheka90', 'Евгений Пасечкин', '+375331683987', '789321Zhmen'),
+('ivanVladimirovich@mail.ru', 'client', 'ivanVladimirovich', 'Иван Прусов', '+375445478965', '456852Ivan');
 delete from client;
-
-insert into admin (login, password) values
-('admin1', 'admin123'),
-('admin2', 'admin456');
-delete from admin;

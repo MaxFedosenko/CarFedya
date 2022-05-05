@@ -9,8 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
     
-//    @Query("select c from Car c where c.model = :model")
-//    Car findByModel(@Param("model") String model);
+    @Transactional
+    @Modifying
+    @Query("update Car set client_id = :idClient where id = :idCar")
+    void booking(@Param("idClient") Long idClient,
+                 @Param("idCar") Long idCar);
     
     @Transactional
     @Modifying

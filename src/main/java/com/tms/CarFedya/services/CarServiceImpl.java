@@ -22,14 +22,15 @@ public class CarServiceImpl implements CarService {
     
     @Override
     public String calculate(Long id, Double timeRent) {
+        validator.validate(timeRent);
         Double rate = carRepository.findById(id).get().getRate();
-        String result = validator.calculateValidator(rate, timeRent);
-        return result;
+        return String.format("%.1f", 60 * rate * timeRent);
     }
     
     @Override
-    public Car save(String modelCar, Double rate, String description) {
-        return carRepository.save(new Car(modelCar, rate, description));
+    public Car save(Car car) {
+        validator.validate(car);
+        return carRepository.save(car);
     }
     
     @Override
@@ -41,8 +42,8 @@ public class CarServiceImpl implements CarService {
     
     
     @Override
-    public String updateDescription(String description, Long id) {
+    public void updateDescription(String description, Long id) {
+        validator.validate(description);
         carRepository.updateDescription(description, id);
-        return "adminpages/finalupdate";
     }
 }
